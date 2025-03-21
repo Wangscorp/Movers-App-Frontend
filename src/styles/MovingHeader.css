@@ -1,0 +1,29 @@
+.moving-header {
+    background-color: #00f7ff; /* Aqua background */
+    color: #fff; /* White text for contrast */
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+    white-space: nowrap; /* Prevents text wrapping */
+    overflow: hidden; /* Hides overflowing text */
+    position: relative;
+    width: 100%;
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  .moving-header p {
+    display: inline-block;
+    position: relative;
+    animation: scrollText 8s linear infinite; /* Smooth scrolling animation */
+  }
+  
+  @keyframes scrollText {
+    0% {
+      transform: translateX(100%); /* Start offscreen to the right */
+    }
+    100% {
+      transform: translateX(-100%); /* Move offscreen to the left */
+    }
+  }
+  

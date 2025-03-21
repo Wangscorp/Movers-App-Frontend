@@ -1,19 +1,15 @@
 import React from "react";
-import "../styles/Login.css"; // Ensure the CSS you passed earlier is in this file
+import { Link } from "react-router-dom";
+import MovingHeader from "../components/MovingHeader";
+import "../styles/Login.css";
 
 const Login = () => {
   return (
     <div>
       <div className="glowing-light"></div>
       <div className="login-box">
+      <MovingHeader message="Welcome back to Movers!" />
         <form>
-          <input type="checkbox" className="input-check" id="input-check" />
-          <label htmlFor="input-check" className="toggle">
-            <span className="text off">off</span>
-            <span className="text on">on</span>
-          </label>
-          <div className="light"></div>
-
           <h2>Login</h2>
           <div className="input-box">
             <span className="icon">

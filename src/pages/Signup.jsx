@@ -1,60 +1,69 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import MovingHeader from "../components/MovingHeader";
+import axios from "axios"; // For API requests
 import "../styles/Login.css";
-import "../styles/Signup.css"; // Additional styling for the moving header
 
 const Signup = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState(""); // Track selected role
+  const [formData, setFormData] = useState({ email: "", password: "", confirmPassword: "" });
+  const navigate = useNavigate(); // Redirect to dashboard
 
-  const handleSubmit = (e) => {
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+
+    // Check if passwords match
+    if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match. Please try again.");
       return;
     }
-    alert("Signup successful!");
+
+    // Send user data to the backend
+    try {
+      const response = await axios.post("/api/signup", {
+        email: formData.email,
+        password: formData.password,
+        role: role,
+      });
+
+      if (response.status === 201) {
+        alert("Signup successful!");
+        // Redirect based on user role
+        if (role === "customer") {
+          navigate("/dashboard?role=customer");
+        } else if (role === "driver") {
+          navigate("/dashboard?role=driver");
+        }
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      alert("Signup failed. Please try again.");
+    }
   };
 
   return (
-    <div>
-      {/* Moving Header */}
-      <div className="moving-header">
-        <p>Welcome to Movers</p>
-      </div>
-
-      {/* Rotating Text */}
-      <div className="rotating-text">
-        <p>Signup to Movers</p>
-      </div>
-
-      {/* Signup Form */}
-      <div className="glowing-light"></div>
-      <div className="login-box">
+    <div className="container">
+      <div className="signup-form">
+        <MovingHeader message="Welcome to Movers, Here we move the world !!" />
+        <h2>Signup</h2>
         <form onSubmit={handleSubmit}>
-          <h2>Signup</h2>
-          <div className="input-box">
-            <span className="icon">
-              <ion-icon name="person"></ion-icon>
-            </span>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <label>Username</label>
-            <div className="input-line"></div>
-          </div>
           <div className="input-box">
             <span className="icon">
               <ion-icon name="mail"></ion-icon>
             </span>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
               required
             />
             <label>Email</label>
@@ -66,8 +75,9 @@ const Signup = () => {
             </span>
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
               required
             />
             <label>Password</label>
@@ -79,20 +89,31 @@ const Signup = () => {
             </span>
             <input
               type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
               required
             />
             <label>Confirm Password</label>
             <div className="input-line"></div>
           </div>
-          <button type="submit">Signup</button>
-          <div className="register-link">
-            <p>
-              Already have an account? <a href="/login">Login</a>
-            </p>
+          <div className="role-select">
+            <label>Select your role:</label>
+            <select value={role} onChange={handleRoleChange} required>
+              <option value="" disabled>
+                --Select Role--
+              </option>
+              <option value="customer">Customer</option>
+              <option value="driver">Driver</option>
+            </select>
           </div>
+          <button type="submit">Signup</button>
         </form>
+        <div className="register-link">
+          <p>
+            Already have an account? <a href="/login">Login</a>
+          </p>
+        </div>
       </div>
     </div>
   );
