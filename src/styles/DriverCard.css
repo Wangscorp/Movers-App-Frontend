@@ -1,0 +1,25 @@
+.driver-card {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .driver-card h3 {
+    color: #0078ff;
+    margin-bottom: 10px;
+  }
+  
+  .driver-card p {
+    margin: 5px 0;
+    color: #333;
+  }
+  
+  .driver-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  

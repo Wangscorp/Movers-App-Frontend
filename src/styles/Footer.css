@@ -1,17 +1,20 @@
-/* Moving Footer */
 .moving-footer {
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
-  position: fixed; /* Keep footer fixed at bottom */
+  position: fixed;
   bottom: 0;
-  width: 100%;
-  background: #191919; /* Optional background for styling */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background-color: aqua;
   text-align: center;
-  padding: 10px 0;
+  padding: 10px;
   z-index: 1000;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .moving-footer p {
@@ -21,7 +24,7 @@
 }
 
 .moving-footer a {
-  color: #00f7ff;
+  color: #0078ff;
   text-decoration: none;
 }
 
@@ -31,9 +34,9 @@
 
 @keyframes scrollFooter {
   0% {
-    transform: translateX(100%); /* Start offscreen to the right */
+    transform: translateX(100%);
   }
   100% {
-    transform: translateX(-100%); /* Move offscreen to the left */
+    transform: translateX(-100%);
   }
 }
